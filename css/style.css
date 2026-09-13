@@ -384,6 +384,7 @@ main {
   gap: 0.85rem;
   text-decoration: none;
   color: inherit;
+  flex-shrink: 0;
 }
 
 .brand-monogram {
@@ -441,12 +442,14 @@ main {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(1rem, 1.8vw, 1.85rem);
   background: rgba(255, 255, 255, 0.03);
   padding: 0.4rem 1.4rem;
   border-radius: var(--border-radius-pill);
   border: 1px solid var(--border-hairline);
   backdrop-filter: blur(12px);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .nav-link {
@@ -478,6 +481,7 @@ main {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-shrink: 0;
 }
 
 .mobile-menu-btn {
@@ -582,14 +586,18 @@ main {
   text-decoration: none;
   border-radius: var(--border-radius-pill);
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
   border: 1px solid transparent;
   will-change: transform;
 }
 
 .btn-sm {
-  padding: 0.5rem 1.1rem;
+  padding: 0.5rem 1.15rem;
   font-size: 0.84rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-primary {
@@ -2600,6 +2608,14 @@ main {
 
 /* --- RESPONSIVE BREAKPOINTS --- */
 @media (max-width: 1024px) {
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
   .about-grid,
   .featured-project-inner,
   .achievement-grid,
@@ -2635,14 +2651,6 @@ main {
 @media (max-width: 768px) {
   .section-container {
     padding: 4.5rem 1rem;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .mobile-menu-btn {
-    display: flex;
   }
 
   .about-stats-bento {
