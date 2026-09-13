@@ -430,6 +430,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const techIconMap = {
+    'next.js': 'assets/nextjs.svg',
+    'react': 'assets/react_light.svg',
+    'react native': 'assets/react_light.svg',
+    'react (vite)': 'assets/react_light.svg',
+    'nestjs': 'assets/nestjs.svg',
+    '.net 8': 'assets/dotnet.svg',
+    'c#': 'assets/csharp.svg',
+    'postgresql': 'assets/postgresql.svg',
+    'supabase': 'assets/supabase.svg',
+    'mongodb': 'assets/mongodb.svg',
+    'mysql': 'assets/mysql.svg',
+    'docker': 'assets/docker.svg',
+    'aws': 'assets/aws.svg',
+    'aws ec2': 'assets/aws.svg',
+    'aws amplify': 'assets/aws.svg',
+    'github actions': 'assets/github.svg',
+    'github actions ci': 'assets/github.svg',
+    'ci/cd': 'assets/github.svg',
+    'sentry': 'assets/sentry.svg',
+    'stripe': 'assets/stripe_wordmark.svg',
+    'typescript': 'assets/typescript.svg',
+    'python': 'assets/python.svg',
+    'flask': 'assets/python.svg',
+    'php': 'assets/php.svg',
+    'phpunit': 'assets/php.svg',
+    'laravel': 'assets/laravel.svg',
+    'express.js': 'assets/express.svg',
+    'jira': 'assets/jira.svg',
+    'firebase': 'assets/firebase.svg',
+    'drizzle': 'assets/drizzle.svg',
+    'git': 'assets/git.svg',
+    'gitlab': 'assets/gitlab.svg',
+    'app store': 'assets/appstore.svg',
+    'google play': 'assets/googleplay.svg'
+  };
+
+  function renderTechTag(tag) {
+    const icon = techIconMap[tag.toLowerCase()];
+    if (icon) {
+      return `<span class="tech-pill highlight"><img src="${icon}" class="tech-icon-img" alt=""> ${tag}</span>`;
+    }
+    return `<span class="tech-pill highlight">${tag}</span>`;
+  }
+
   const caseStudyModal = document.getElementById('caseStudyModal');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const modalBody = document.getElementById('modalBodyContent');
@@ -466,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="modal-content-section">
         <h4 class="modal-section-title">Verified Tech Stack</h4>
         <div class="modal-tech-stack">
-          ${data.techTags.map((tag) => `<span class="tech-pill highlight">${tag}</span>`).join('')}
+          ${data.techTags.map(renderTechTag).join('')}
         </div>
       </div>
 

@@ -1035,7 +1035,19 @@ main {
 }
 
 .tech-icon-circle {
-  font-size: 0.95rem;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tech-icon-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
 }
 
 @keyframes marqueeScroll {
@@ -1098,6 +1110,9 @@ main {
 }
 
 .tech-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.82rem;
   font-weight: 500;
@@ -1107,6 +1122,13 @@ main {
   padding: 0.35rem 0.85rem;
   border-radius: var(--border-radius-pill);
   transition: all var(--transition-fast);
+}
+
+.tech-pill .tech-icon-img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .tech-pill.highlight {
@@ -1122,6 +1144,9 @@ main {
 }
 
 .tech-pill-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--font-mono);
   font-size: 0.74rem;
   color: #94a3b8;
@@ -1129,6 +1154,13 @@ main {
   border: 1px solid var(--border-hairline);
   padding: 0.25rem 0.65rem;
   border-radius: var(--border-radius-pill);
+}
+
+.tech-pill-sm .tech-icon-img {
+  width: 13px;
+  height: 13px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* --- EXPERIENCE VERTICAL TIMELINE --- */
@@ -1945,6 +1977,9 @@ main {
 }
 
 .tag-pill-mono {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: #94a3b8;
@@ -1952,6 +1987,13 @@ main {
   border: 1px solid var(--border-hairline);
   padding: 0.25rem 0.65rem;
   border-radius: var(--border-radius-sm);
+}
+
+.tag-pill-mono .tech-icon-img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .project-footer-row {
@@ -1973,6 +2015,7 @@ main {
   font-weight: 600;
   color: var(--accent-cyan);
   cursor: pointer;
+  white-space: nowrap;
   transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
@@ -2092,6 +2135,21 @@ main {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-hairline);
   padding: 0.3rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.achievement-proof {
+  margin-top: 1.25rem;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-hairline);
+}
+
+.achievement-proof-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
   border-radius: var(--border-radius-sm);
 }
 
