@@ -185,6 +185,52 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================================
+  // 6b. ROADMAP — ASCENDING GROWTH ARC DRAW & MILESTONE REVEAL
+  // ==========================================================================
+  const roadmapTrack = document.getElementById('roadmapTrack');
+  if (roadmapTrack) {
+    const arcPaths = [
+      document.getElementById('roadmapArcPath'),
+      document.getElementById('roadmapArcGlow')
+    ].filter(Boolean);
+    const roadmapNodes = roadmapTrack.querySelectorAll('.roadmap-node');
+
+    // Measure each arc path so it can draw itself in via stroke-dashoffset.
+    arcPaths.forEach((path) => {
+      const length = path.getTotalLength();
+      path.style.strokeDasharray = `${length}`;
+      path.style.strokeDashoffset = `${length}`;
+    });
+
+    roadmapNodes.forEach((node, index) => {
+      node.style.setProperty('--reveal-delay', `${index * 0.1}s`);
+    });
+
+    const roadmapObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const target = entry.target;
+
+        if (target === roadmapTrack) {
+          arcPaths.forEach((path) => {
+            path.style.strokeDashoffset = '0';
+          });
+        }
+
+        target.classList.add('is-revealed');
+        observer.unobserve(target);
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.2
+    });
+
+    roadmapObserver.observe(roadmapTrack);
+    roadmapNodes.forEach((node) => roadmapObserver.observe(node));
+  }
+
+  // ==========================================================================
   // 7. ANIMATED NUMBER COUNTERS
   // ==========================================================================
   const statNumbers = document.querySelectorAll('.stat-number');
