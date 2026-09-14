@@ -340,12 +340,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateIndicator(btn) {
     if (!filterIndicator || !btn) return;
-    const btnRect = btn.getBoundingClientRect();
-    const parentRect = btn.parentElement.getBoundingClientRect();
-    const leftOffset = btnRect.left - parentRect.left;
-
-    filterIndicator.style.transform = `translateX(${leftOffset}px)`;
-    filterIndicator.style.width = `${btnRect.width}px`;
+    // offsetLeft/offsetWidth are relative to the offset parent, so the indicator
+    // stays aligned even when the tab bar is horizontally scrollable on mobile.
+    filterIndicator.style.transform = `translateX(${btn.offsetLeft}px)`;
+    filterIndicator.style.width = `${btn.offsetWidth}px`;
   }
 
   // Position indicator initially on active button
@@ -778,6 +776,323 @@ document.addEventListener('DOMContentLoaded', () => {
         closeScreenshotModal();
       }
     });
+  }
+
+  // ==========================================================================
+  // 17. HERO VOLUMETRIC SMOKE (CANVAS ATMOSPHERE)
+  // ==========================================================================
+  const heroSmokeCanvas = document.getElementById('heroSmokeCanvas');
+  const heroSection = document.getElementById('hero');
+
+  if (heroSmokeCanvas && !prefersReducedMotion) {
+    const smokeCtx = heroSmokeCanvas.getContext('2d');
+    const smokeColors = ['34, 211, 238', '139, 92, 246', '236, 72, 153'];
+    const puffCount = window.innerWidth < 768 ? 12 : 24;
+
+    // Pre-render one soft puff sprite per accent colour so blending stays cheap.
+    function makeSmokeSprite(rgb) {
+      const size = 256;
+      const sprite = document.createElement('canvas');
+      sprite.width = size;
+      sprite.height = size;
+      const sctx = sprite.getContext('2d');
+      const grd = sctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      grd.addColorStop(0, `rgba(${rgb}, 0.7)`);
+      grd.addColorStop(0.4, `rgba(${rgb}, 0.24)`);
+      grd.addColorStop(1, `rgba(${rgb}, 0)`);
+      sctx.fillStyle = grd;
+      sctx.fillRect(0, 0, size, size);
+      return sprite;
+    }
+
+    const smokeSprites = smokeColors.map(makeSmokeSprite);
+    const puffs = [];
+    let smokeW = 1;
+    let smokeH = 1;
+    let smokeLastTime = 0;
+    let smokeFrame = null;
+    let smokeVisible = true;
+
+    function resetPuff(puff, scatter) {
+      puff.x = Math.random();
+      puff.y = scatter ? Math.random() : 1.05 + Math.random() * 0.15;
+      puff.radius = 0.18 + Math.random() * 0.3;
+      puff.speed = 0.012 + Math.random() * 0.022;
+      puff.drift = 0.006 + Math.random() * 0.014;
+      puff.phase = Math.random() * Math.PI * 2;
+      puff.phaseSpeed = 0.15 + Math.random() * 0.35;
+      puff.alpha = 0.1 + Math.random() * 0.18;
+      puff.grow = 0.02 + Math.random() * 0.05;
+      puff.rotation = Math.random() * Math.PI * 2;
+      puff.rotSpeed = (Math.random() - 0.5) * 0.25;
+      puff.stretch = 0.55 + Math.random() * 0.4;
+      puff.sprite = smokeSprites[(Math.random() * smokeSprites.length) | 0];
+      puff.life = 0;
+      puff.maxLife = 6 + Math.random() * 6;
+    }
+
+    for (let i = 0; i < puffCount; i++) {
+      const puff = {};
+      resetPuff(puff, true);
+      puff.life = Math.random() * puff.maxLife;
+      puffs.push(puff);
+    }
+
+    function resizeSmoke() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const rect = heroSmokeCanvas.getBoundingClientRect();
+      smokeW = Math.max(1, rect.width);
+      smokeH = Math.max(1, rect.height);
+      heroSmokeCanvas.width = Math.round(smokeW * dpr);
+      heroSmokeCanvas.height = Math.round(smokeH * dpr);
+      smokeCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function drawSmoke(now) {
+      const dt = smokeLastTime ? Math.min((now - smokeLastTime) / 1000, 0.05) : 0.016;
+      smokeLastTime = now;
+
+      smokeCtx.clearRect(0, 0, smokeW, smokeH);
+      smokeCtx.globalCompositeOperation = 'lighter';
+
+      const minDim = Math.min(smokeW, smokeH);
+
+      puffs.forEach((puff) => {
+        puff.life += dt;
+        puff.y -= puff.speed * dt;
+        puff.phase += puff.phaseSpeed * dt;
+        puff.x += Math.sin(puff.phase) * puff.drift * dt;
+
+        puff.rotation += puff.rotSpeed * dt;
+
+        const lifeRatio = puff.life / puff.maxLife;
+        const fadeIn = Math.min(1, lifeRatio / 0.25);
+        const fadeOut = 1 - Math.min(1, Math.max(0, (lifeRatio - 0.6) / 0.4));
+        const radius = puff.radius * minDim * (1 + puff.grow * puff.life);
+
+        smokeCtx.globalAlpha = puff.alpha * fadeIn * fadeOut;
+        smokeCtx.save();
+        smokeCtx.translate(puff.x * smokeW, puff.y * smokeH);
+        smokeCtx.rotate(puff.rotation);
+        smokeCtx.scale(1, puff.stretch);
+        smokeCtx.drawImage(puff.sprite, -radius, -radius, radius * 2, radius * 2);
+        smokeCtx.restore();
+
+        if (puff.life >= puff.maxLife || puff.y < -0.25) resetPuff(puff, false);
+      });
+
+      smokeCtx.globalAlpha = 1;
+    }
+
+    function smokeLoop(now) {
+      if (!smokeVisible) {
+        smokeFrame = null;
+        return;
+      }
+      drawSmoke(now);
+      smokeFrame = requestAnimationFrame(smokeLoop);
+    }
+
+    function startSmoke() {
+      if (smokeFrame !== null) return;
+      smokeLastTime = 0;
+      smokeFrame = requestAnimationFrame(smokeLoop);
+    }
+
+    function stopSmoke() {
+      if (smokeFrame !== null) {
+        cancelAnimationFrame(smokeFrame);
+        smokeFrame = null;
+      }
+    }
+
+    // Only animate while the hero is on screen and the tab is visible.
+    if (heroSection && 'IntersectionObserver' in window) {
+      const smokeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          smokeVisible = entry.isIntersecting;
+          if (smokeVisible) startSmoke();
+          else stopSmoke();
+        });
+      }, { threshold: 0 });
+      smokeObserver.observe(heroSection);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopSmoke();
+      else if (smokeVisible) startSmoke();
+    });
+
+    window.addEventListener('resize', resizeSmoke);
+    resizeSmoke();
+    startSmoke();
+  }
+
+  // ==========================================================================
+  // 18. CURSOR SMOKE TRAIL + CLICK / TAP WAVE
+  //     The crisp dot + ring stay the primary cursor; this only adds a light
+  //     smoke trail behind the pointer and a ripple on click / tap.
+  // ==========================================================================
+  const cursorFxCanvas = document.getElementById('cursorFxCanvas');
+
+  if (cursorFxCanvas && !prefersReducedMotion) {
+    const fx = cursorFxCanvas.getContext('2d');
+    const trail = [];
+    const ripples = [];
+    const TRAIL_LIMIT = 140;
+
+    let fxW = 1;
+    let fxH = 1;
+    let fxFrame = null;
+    let fxLastTime = 0;
+    let lastSpawnX = 0;
+    let lastSpawnY = 0;
+
+    // Soft pre-rendered puffs keep the per-frame cost to a single drawImage.
+    function makeFxSprite(rgb) {
+      const size = 96;
+      const sprite = document.createElement('canvas');
+      sprite.width = size;
+      sprite.height = size;
+      const sctx = sprite.getContext('2d');
+      const grd = sctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      grd.addColorStop(0, `rgba(${rgb}, 0.62)`);
+      grd.addColorStop(0.5, `rgba(${rgb}, 0.2)`);
+      grd.addColorStop(1, `rgba(${rgb}, 0)`);
+      sctx.fillStyle = grd;
+      sctx.fillRect(0, 0, size, size);
+      return sprite;
+    }
+    const fxSprites = [makeFxSprite('34, 211, 238'), makeFxSprite('139, 92, 246')];
+
+    function resizeFx() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      fxW = window.innerWidth;
+      fxH = window.innerHeight;
+      cursorFxCanvas.width = Math.round(fxW * dpr);
+      cursorFxCanvas.height = Math.round(fxH * dpr);
+      fx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function spawnTrail(x, y) {
+      if (trail.length >= TRAIL_LIMIT) trail.shift();
+      trail.push({
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 16,
+        vy: (Math.random() - 0.5) * 16 - 7,
+        radius: 10 + Math.random() * 16,
+        growth: 20 + Math.random() * 24,
+        life: 0,
+        maxLife: 0.55 + Math.random() * 0.4,
+        alpha: 0.22 + Math.random() * 0.2,
+        sprite: fxSprites[(Math.random() * fxSprites.length) | 0]
+      });
+    }
+
+    function spawnRipple(x, y) {
+      ripples.push({ x, y, radius: 6, growth: 150, life: 0, maxLife: 0.6 });
+    }
+
+    function drawFx(now) {
+      const dt = fxLastTime ? Math.min((now - fxLastTime) / 1000, 0.05) : 0.016;
+      fxLastTime = now;
+
+      fx.clearRect(0, 0, fxW, fxH);
+      fx.globalCompositeOperation = 'lighter';
+
+      for (let i = trail.length - 1; i >= 0; i--) {
+        const puff = trail[i];
+        puff.life += dt;
+        if (puff.life >= puff.maxLife) {
+          trail.splice(i, 1);
+          continue;
+        }
+        puff.x += puff.vx * dt;
+        puff.y += puff.vy * dt;
+        const radius = puff.radius + puff.growth * puff.life;
+        fx.globalAlpha = puff.alpha * (1 - puff.life / puff.maxLife);
+        fx.drawImage(puff.sprite, puff.x - radius, puff.y - radius, radius * 2, radius * 2);
+      }
+
+      fx.globalAlpha = 1;
+      fx.globalCompositeOperation = 'source-over';
+
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const wave = ripples[i];
+        wave.life += dt;
+        if (wave.life >= wave.maxLife) {
+          ripples.splice(i, 1);
+          continue;
+        }
+        const progress = wave.life / wave.maxLife;
+        const radius = wave.radius + wave.growth * progress;
+        const fade = 1 - progress;
+
+        fx.globalAlpha = fade * 0.55;
+        fx.strokeStyle = 'rgb(34, 211, 238)';
+        fx.lineWidth = 2 * fade + 0.5;
+        fx.beginPath();
+        fx.arc(wave.x, wave.y, radius, 0, Math.PI * 2);
+        fx.stroke();
+
+        fx.globalAlpha = fade * 0.3;
+        fx.strokeStyle = 'rgb(139, 92, 246)';
+        fx.beginPath();
+        fx.arc(wave.x, wave.y, radius * 0.72, 0, Math.PI * 2);
+        fx.stroke();
+      }
+
+      fx.globalAlpha = 1;
+      return trail.length > 0 || ripples.length > 0;
+    }
+
+    function fxLoop(now) {
+      if (drawFx(now)) {
+        fxFrame = requestAnimationFrame(fxLoop);
+      } else {
+        // Fully idle: stop the RAF loop instead of burning frames.
+        fxFrame = null;
+        fxLastTime = 0;
+      }
+    }
+
+    function startFx() {
+      if (fxFrame === null) fxFrame = requestAnimationFrame(fxLoop);
+    }
+
+    function stopFx() {
+      if (fxFrame !== null) {
+        cancelAnimationFrame(fxFrame);
+        fxFrame = null;
+      }
+      trail.length = 0;
+      ripples.length = 0;
+      fx.clearRect(0, 0, fxW, fxH);
+    }
+
+    window.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const dx = e.clientX - lastSpawnX;
+      const dy = e.clientY - lastSpawnY;
+      if (dx * dx + dy * dy < 25) return;
+      lastSpawnX = e.clientX;
+      lastSpawnY = e.clientY;
+      spawnTrail(e.clientX, e.clientY);
+      startFx();
+    }, { passive: true });
+
+    window.addEventListener('pointerdown', (e) => {
+      spawnRipple(e.clientX, e.clientY);
+      startFx();
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopFx();
+    });
+
+    window.addEventListener('resize', resizeFx);
+    resizeFx();
   }
 
 });
