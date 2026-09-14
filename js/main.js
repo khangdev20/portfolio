@@ -624,11 +624,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Open mailto link
       window.location.href = mailtoLink;
 
-      showToast('Opening default email client with your message drafted!');
+      showToast('Opening your email client with your message!');
 
       setTimeout(() => {
         if (formStatus) {
-          formStatus.textContent = 'Message drafted! You can also email directly at lenhutkhangvo@gmail.com';
+          formStatus.textContent = 'Email client opened. You can also email directly at lenhutkhangvo@gmail.com';
         }
       }, 2000);
     });
