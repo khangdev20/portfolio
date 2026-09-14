@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LE NHUT KHANG VO — PORTFOLIO STYLESHEET
+   LE NHUT KHANG VO - PORTFOLIO STYLESHEET
    Design Language: 2026 AI-Generated Generative Premium Dark-Mode
    Palette: Near-Black Base (#090a0f) + Electric Violet (#8b5cf6) + Cyber Cyan (#22d3ee)
    ========================================================================== */
@@ -742,7 +742,7 @@ main {
   flex-shrink: 0;
 }
 
-/* Lucide icon size constraints — applies to all <svg> injected from <i data-lucide> */
+/* Lucide icon size constraints - applies to all <svg> injected from <i data-lucide> */
 .btn svg, .btn i[data-lucide] { flex-shrink: 0; }
 .btn svg { width: 1rem; height: 1rem; }
 .btn-sm svg { width: 0.875rem; height: 0.875rem; }
@@ -1280,7 +1280,7 @@ i[data-lucide].w-6 > svg,    i[data-lucide].w-6   { width: 1.5rem   !important; 
 }
 
 .experience-bullets li::before {
-  content: '▹';
+  content: '>';
   position: absolute;
   left: 0;
   color: var(--accent-cyan);
@@ -2006,8 +2006,9 @@ i[data-lucide].w-6 > svg,    i[data-lucide].w-6   { width: 1.5rem   !important; 
   margin-bottom: 1.5rem;
 }
 
-.trophy-emoji {
-  font-size: 1.1rem;
+.trophy-icon {
+  color: #fbbf24;
+  flex-shrink: 0;
 }
 
 .trophy-label {
@@ -2153,7 +2154,13 @@ i[data-lucide].w-6 > svg,    i[data-lucide].w-6   { width: 1.5rem   !important; 
 }
 
 .edu-flag {
-  font-size: 1.35rem;
+  display: inline-block;
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid var(--border-hairline);
+  flex-shrink: 0;
 }
 
 .edu-period {
@@ -2567,7 +2574,7 @@ i[data-lucide].w-6 > svg,    i[data-lucide].w-6   { width: 1.5rem   !important; 
 }
 
 .modal-bullet-list li::before {
-  content: '▸';
+  content: '>';
   position: absolute;
   left: 0;
   color: var(--accent-cyan);

@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * LE NHUT KHANG VO — INTERACTIVE ENGINE
+ * LE NHUT KHANG VO - INTERACTIVE ENGINE
  * High-performance motion, Lenis smooth scrolling, 3D tilt, magnetic buttons,
  * dynamic case study modals, and animated stat counters.
  * ============================================================================
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================================================
-  // 6b. ROADMAP — ASCENDING GROWTH ARC DRAW & MILESTONE REVEAL
+  // 6b. ROADMAP - ASCENDING GROWTH ARC DRAW & MILESTONE REVEAL
   // ==========================================================================
   const roadmapTrack = document.getElementById('roadmapTrack');
   if (roadmapTrack) {
@@ -396,13 +396,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   const caseStudies = {
     'trip-marketplace': {
-      badge: 'FLAGSHIP PRODUCTION SHOWCASE · SOLE DEVELOPER · AI-ASSISTED',
+      badge: 'FLAGSHIP PRODUCTION SHOWCASE | SOLE DEVELOPER | AI-ASSISTED',
       title: 'Trip Marketplace Platform',
-      subtitle: 'Next.js · React Native · NestJS · Supabase · Stripe · AWS · Docker',
+      subtitle: 'Next.js | React Native | NestJS | Supabase | Stripe | AWS | Docker',
       overview: 'A commercial, multi-platform marketplace built solo as an AI-assisted end-to-end production project for an Australian client where travel creators publish and monetize self-guided itineraries. The platform features automated route generation via photo geolocation, turn-by-turn waypoint navigation, multi-party Stripe payouts, and dedicated web/mobile client applications.',
       challenges: [
         'AI-Assisted Accelerated Engineering: Leveraged modern AI pair-programming workflows to architect, implement, test, and ship a complex multi-platform ecosystem solo from zero to production deployment.',
-        'Strategic Scope Curation: Pushed back on the client’s expansive initial requirements document and successfully convinced leadership to ship a tightly validated, core product first.',
+        'Strategic Scope Curation: Pushed back on the client\'s expansive initial requirements document and successfully convinced leadership to ship a tightly validated, core product first.',
         'Photo-Sync Geolocation: Engineered an automated route generator extracting GPS EXIF data from creator photos, sorting waypoints chronologically, and computing topological route lines.',
         'Real-Time Waypoint Tracking: Developed active GPS proximity alerts in React Native for travelers following purchased routes in low-connectivity areas.',
         'Payment & Auth Infrastructure: Integrated Stripe Connect webhooks with split fees and automated creator payouts; architected Supabase PostgreSQL with strict Row Level Security (RLS) policies.',
@@ -415,9 +415,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     'estuary-running': {
-      badge: 'PRODUCTION BACKEND · SALESTECH ENTERPRISE',
+      badge: 'PRODUCTION BACKEND | SALESTECH ENTERPRISE',
       title: 'Virtual Running & CRM Engine',
-      subtitle: '.NET 8 · C# · PostgreSQL · MongoDB · Redis · Docker',
+      subtitle: '.NET 8 | C# | PostgreSQL | MongoDB | Redis | Docker',
       overview: 'Engineered high-throughput backend APIs at Estuary Solutions (Vietnam) for a high-traffic Virtual Running tracking application and enterprise loyalty CRM delivered to corporate clients across 13 countries in the Asia Pacific region.',
       challenges: [
         '2D Runner Coordinate Reconstruction: Processed telemetry feeds from running apps to reconstruct continuous user routes across a 2D coordinate plane from velocity and distance markers (.NET 8, PostgreSQL).',
@@ -431,9 +431,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     'dost-capstone': {
-      badge: 'GOVERNMENT ENTERPRISE · QUT CAPSTONE',
+      badge: 'GOVERNMENT ENTERPRISE | QUT CAPSTONE',
       title: 'Budget Request Lifecycle Platform for DOST',
-      subtitle: 'Department of Science and Technology, Philippines · React (Vite) · Laravel · PHPUnit',
+      subtitle: 'Department of Science and Technology, Philippines | React (Vite) | Laravel | PHPUnit',
       overview: 'Official QUT Capstone project for the Department of Science and Technology (DOST, Philippines). Serving as Technical Solution Designer and Developer in a 5-person international team to streamline and automate multi-department government budget request and approval lifecycles.',
       challenges: [
         'Phase 1 Architecture: Conducted extensive stakeholder interviews with international government officers, producing comprehensive system design specifications, UML workflows, and security threat models.',
@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'donation-tracker': {
       badge: 'FULLSTACK CLOUD APPLICATION',
       title: 'Donation Tracker & Ledger System',
-      subtitle: 'React · Express.js · AWS EC2 · GitHub Actions CI/CD',
+      subtitle: 'React | Express.js | AWS EC2 | GitHub Actions CI/CD',
       overview: 'A full-stack financial ledger web application engineered for non-profit transparency, enabling real-time campaign budgeting, donor allocation tracing, and audit-ready financial reporting.',
       challenges: [
         'Fullstack Development: Built modern React client application with stateful financial charts and a Node.js / Express.js REST API with input sanitation.',
@@ -461,9 +461,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     'grocery-store': {
-      badge: 'ENTERPRISE DATABASE DESIGN · ACADEMIC',
+      badge: 'ENTERPRISE DATABASE DESIGN | ACADEMIC',
       title: 'Grocery Store Management System',
-      subtitle: 'Python (Flask) · MySQL · Jinja2 · Relational Modeling',
+      subtitle: 'Python (Flask) | MySQL | Jinja2 | Relational Modeling',
       overview: 'Academic database-design project modeling complex retail operations including multi-category stock inventory, supply chain tracking, customer orders, and staff point-of-sale transactions.',
       challenges: [
         '3NF Relational Modeling: Designed normalized database schemas enforcing referential integrity, composite keys, custom triggers, and performance-tuned indexes.',
@@ -499,6 +499,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'sentry': 'assets/sentry.svg',
     'stripe': 'assets/stripe_wordmark.svg',
     'typescript': 'assets/typescript.svg',
+    'javascript': 'assets/javascript.svg',
+    'tailwind css': 'assets/tailwindcss.svg',
+    'tailwind': 'assets/tailwindcss.svg',
     'python': 'assets/python.svg',
     'flask': 'assets/python.svg',
     'php': 'assets/php.svg',

@@ -1,4 +1,4 @@
-# Le Nhut Khang Vo — Portfolio Website
+# Le Nhut Khang Vo - Portfolio Website
 
 > **Elite Fullstack Developer & AI Specialist Portfolio**  
 > Designed with a 2026 AI-generated generative dark-mode aesthetic (Awwwards / Linear / Vercel inspired).  
@@ -6,13 +6,13 @@
 
 ---
 
-## ⚡ Quick Deployment
+## Quick Deployment
 
 Because this project uses pure, modern static files (HTML5, CSS3, Vanilla ES6+ JavaScript), there is no `npm run build` or compilation step required.
 
 ### 1. GitHub Pages
 1. Push this repository to GitHub (`khangdev20/portfolio` or `khangdev20.github.io`).
-2. Navigate to **Settings → Pages**.
+2. Navigate to **Settings -> Pages**.
 3. Under **Branch**, select `main` (or `master`) and folder `/ (root)`.
 4. Click **Save**. Your site will be live at `https://khangdev20.github.io/`.
 
@@ -27,7 +27,7 @@ Because this project uses pure, modern static files (HTML5, CSS3, Vanilla ES6+ J
 
 ---
 
-## 🛠 Tech Stack & Architecture
+## Tech Stack & Architecture
 
 - **Markup:** Semantic HTML5, accessible ARIA attributes, structured metadata, and Open Graph tags.
 - **Styling:** Vanilla CSS with custom properties (CSS variables), glassmorphism (`backdrop-filter: blur()`), hairline borders, and responsive grid layouts.
@@ -43,7 +43,7 @@ Because this project uses pure, modern static files (HTML5, CSS3, Vanilla ES6+ J
 
 ---
 
-## 📦 CDN Libraries Used
+## CDN Libraries Used
 
 All external scripts and fonts are loaded through fast, high-availability public CDNs:
 
@@ -59,7 +59,7 @@ All external scripts and fonts are loaded through fast, high-availability public
 
 ---
 
-## 🎨 Customization Guide
+## Customization Guide
 
 ### 1. Swapping Color Accents
 All colors are centralized in `css/style.css` under the `:root` pseudo-class:
@@ -108,27 +108,27 @@ In `index.html`, inside the `#featuredTripMarketplace` section:
 
 ---
 
-## 📁 Project File Structure
+## Project File Structure
 
 ```
 portfolio/
-├── index.html          # Semantic single-page application structure
-├── css/
-│   └── style.css       # Complete design system, glassmorphism, animations, responsive rules
-├── js/
-│   └── main.js         # Interactive engine (Lenis, 3D tilt, filters, modal, counters)
-├── assets/             # Media and static graphics directory
-└── README.md           # Documentation and deployment manual
+|-- index.html          # Semantic single-page application structure
+|-- css/
+|   `-- style.css       # Complete design system, glassmorphism, animations, responsive rules
+|-- js/
+|   `-- main.js         # Interactive engine (Lenis, 3D tilt, filters, modal, counters)
+|-- assets/             # Media and static graphics directory
+`-- README.md           # Documentation and deployment manual
 ```
 
 ---
 
-## 👤 Profile & Attribution
+## Profile & Attribution
 
 - **Name:** Le Nhut Khang Vo
-- **Title:** Fullstack Developer · Master of Information Technology (AI Major) @ QUT
+- **Title:** Fullstack Developer | Master of Information Technology (AI Major) @ QUT
 - **Location:** Brisbane, QLD, Australia
-- **Visa Status:** Subclass 485 Temporary Graduate Visa (2 Years) &middot; Full Working Rights
+- **Visa Status:** Subclass 485 Temporary Graduate Visa (2 Years) | Full Working Rights
 - **Email:** [lenhutkhangvo@gmail.com](mailto:lenhutkhangvo@gmail.com)
 - **LinkedIn:** [linkedin.com/in/vokhang](https://linkedin.com/in/vokhang)
 - **GitHub:** [github.com/khangdev20](https://github.com/khangdev20)
