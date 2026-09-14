@@ -648,4 +648,81 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  // ==========================================================================
+  // 15. PHONE MOCKUP SLIDESHOW (TRIP MARKETPLACE MOBILE PROOF)
+  // ==========================================================================
+  const phoneSlider = document.getElementById('phoneSlider');
+  if (phoneSlider) {
+    const slides = phoneSlider.querySelectorAll('.phone-slide');
+    let currentIndex = 0;
+    let autoTimer = null;
+
+    function goToSlide(index) {
+      if (!slides.length) return;
+      currentIndex = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function startTimer() {
+      stopTimer();
+      autoTimer = setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, 3500);
+    }
+
+    function stopTimer() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    phoneSlider.addEventListener('mouseenter', stopTimer);
+    phoneSlider.addEventListener('mouseleave', startTimer);
+    startTimer();
+  }
+
+  // ==========================================================================
+  // 16. SCREENSHOT LIGHTBOX MODAL
+  // ==========================================================================
+  const screenshotModal = document.getElementById('screenshotModal');
+  const screenshotModalImg = document.getElementById('screenshotModalImg');
+  const screenshotModalTitle = document.getElementById('screenshotModalTitle');
+
+  window.openScreenshotModal = function (src, title) {
+    if (!screenshotModal || !screenshotModalImg) return;
+    screenshotModalImg.src = src;
+    screenshotModalImg.alt = title || 'Screenshot Preview';
+    if (screenshotModalTitle) {
+      screenshotModalTitle.textContent = title || 'Screenshot Preview';
+    }
+    screenshotModal.classList.add('open');
+    screenshotModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeScreenshotModal = function () {
+    if (!screenshotModal) return;
+    screenshotModal.classList.remove('open');
+    screenshotModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  if (screenshotModal) {
+    screenshotModal.addEventListener('click', (e) => {
+      if (e.target === screenshotModal) {
+        closeScreenshotModal();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && screenshotModal.classList.contains('open')) {
+        closeScreenshotModal();
+      }
+    });
+  }
+
 });
