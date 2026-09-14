@@ -2165,6 +2165,10 @@ i[data-lucide].w-6 > svg,    i[data-lucide].w-6   { width: 1.5rem   !important; 
   box-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
 }
 
+.achievement-action-row {
+  margin-top: 1.75rem;
+}
+
 /* --- EDUCATION SECTION --- */
 .education-grid {
   display: grid;
