@@ -1346,6 +1346,20 @@ i[data-lucide].w-6 > svg,    i[data-lucide].w-6   { width: 1.5rem   !important; 
   border-radius: var(--border-radius-pill);
 }
 
+.badge-ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.1);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--border-radius-pill);
+}
+
 .featured-title {
   font-size: clamp(1.85rem, 3.2vw, 2.75rem);
   font-weight: 800;

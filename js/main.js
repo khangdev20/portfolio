@@ -350,11 +350,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   const caseStudies = {
     'trip-marketplace': {
-      badge: 'FLAGSHIP PRODUCTION SHOWCASE · SOLE DEVELOPER',
+      badge: 'FLAGSHIP PRODUCTION SHOWCASE · SOLE DEVELOPER · AI-ASSISTED',
       title: 'Trip Marketplace Platform',
       subtitle: 'Next.js · React Native · NestJS · Supabase · Stripe · AWS · Docker',
-      overview: 'A commercial, multi-platform marketplace built solo for an Australian client where travel creators publish and monetize self-guided itineraries. The platform features automated route generation via photo geolocation, turn-by-turn waypoint navigation, multi-party Stripe payouts, and dedicated web/mobile client applications.',
+      overview: 'A commercial, multi-platform marketplace built solo as an AI-assisted end-to-end production project for an Australian client where travel creators publish and monetize self-guided itineraries. The platform features automated route generation via photo geolocation, turn-by-turn waypoint navigation, multi-party Stripe payouts, and dedicated web/mobile client applications.',
       challenges: [
+        'AI-Assisted Accelerated Engineering: Leveraged modern AI pair-programming workflows to architect, implement, test, and ship a complex multi-platform ecosystem solo from zero to production deployment.',
         'Strategic Scope Curation: Pushed back on the client’s expansive initial requirements document and successfully convinced leadership to ship a tightly validated, core product first.',
         'Photo-Sync Geolocation: Engineered an automated route generator extracting GPS EXIF data from creator photos, sorting waypoints chronologically, and computing topological route lines.',
         'Real-Time Waypoint Tracking: Developed active GPS proximity alerts in React Native for travelers following purchased routes in low-connectivity areas.',
@@ -362,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Internal Moderation Portal: Built a separate internal moderation panel using React + Vite for admin inspection, dispute resolution, and commission tracking.',
         'Enterprise Reliability: Containerized NestJS API with Docker, orchestrated CI/CD through GitHub Actions, enforced strict coverage thresholds in Jest & Vitest, and deployed API on AWS EC2 with Load Balancing and web on AWS Amplify.'
       ],
-      techTags: ['Next.js', 'React Native', 'NestJS', 'Supabase', 'PostgreSQL', 'Stripe', 'AWS EC2', 'AWS Amplify', 'Docker', 'GitHub Actions', 'Sentry', 'Jest', 'Vitest'],
+      techTags: ['AI-Assisted Workflow', 'Next.js', 'React Native', 'NestJS', 'Supabase', 'PostgreSQL', 'Stripe', 'AWS EC2', 'AWS Amplify', 'Docker', 'GitHub Actions', 'Sentry', 'Jest', 'Vitest'],
       links: [
         { label: 'Production Status: Deployed on AWS & App Stores (Client NDA)', href: '#' }
       ]
